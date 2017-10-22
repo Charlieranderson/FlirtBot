@@ -1,5 +1,5 @@
 '''
-Created by Charlie, Ammar, and Leila
+Created by Charlie, Ammar, Leila, Teddy
 This is the source code for our chatbot BaeBot
 '''
 
