@@ -30,32 +30,41 @@ p2B1R1 = "Oh brilliant;) How would you like to travel around Europe with me for 
 # [Idk maybe, yes, no]
 p2R2 = "I know its kinda scary, but maybe a little fun?;) where would you take me?"
 # [I would take you to venice]
-p2R3 = "That sounds just fantastic:) We would see a little art, eat some amazing food, see the world. It’d be just like a disney movie. Do you like movies?"
+p2R3 = "That sounds just fantastic:) We would see a little art, eat some amazing food, see the world. What should I pack?"
 # [I wouldn’t]
-p2R4 = "Hey, ouch haha okay I was only kidding;) Okay so you’d go off on your own huh? The lone, stoic hero. Just like batman. Do you like movies?"
-# [I love movies]
+p2R4 = "Hey, ouch haha okay I was only kidding;) We don't have to go on a big adventure right away. I mean, we just met. How about we go to the movies instead. Do you like movies?"
+# [Sure]
+p2R4B1 = "Oh great! What's your fave movie?"
+p2R4B1Easter = "Oh great! I love Sharknado. What do yout think of it?"
+# [get movie name, go to phase 3 and say let's watch that this weekend]
 # [I hate movies]
-
-#
+p2R4B2 = "Oooh. So are you more of a book person?"
+#yes
+p2R4B2B1 = "I love books too. What kind of books do you like? Do you like 50 shades of gray? ;) That's my fantasy."
+#yes: PHASE
+#no
+p2R4B2B2 = "So what do you like then?"
+#no matter what you hear
 
 # (Doesn’t like travel): 
-p2B2R1 = "Oh that makes sense. Sometimes it’s fun to just be at home relaxing. Are you a fan of cuddling by a nice, hot fireplace and eating [favorite food]?"
+p2B2R1 = "Oh that makes sense. Sometimes it’s fun to just be at home relaxing. Are you a fan of cuddling by a nice, hot fireplace and eating your favorite food?"
 # Yeah that sounds awesome
-p2B2R2 = "Well I guess we know what we’re doing next weekend!"
-
-
-No I don’t really like cuddling
-What would you most like to do on a date?
+p2B2R1B1 = "Well I guess we know what we’re doing next weekend;)!"
+#no, I like cold
+p2B2R1B2 = "So what do you like then?"
+#no matter what you hear
 
 
 # End game, two versions depending on flirty weight.
 # Phase 3: 
 # If person is liked:
-
+p3e1 = "Meet me halfway."
 
 
 
 #If person is not liked:
+p2R4B2B2R = "Oh. That's soooo interesting but look at the time. <YAAAAWNS>. I gotta go to bed. See ya."
+p2B2R1B2R = "Oh. That's soooo interesting but look at the time. <YAAAAWNS>. I gotta go to bed. See ya."
 
 
 
