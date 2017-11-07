@@ -8,7 +8,8 @@ from nltk.tokenize import word_tokenize
 import random
 import ast
 import pickle
-#import narrativeStuff
+import NarrativeTreeStructure
+
 
 
 
@@ -20,8 +21,14 @@ def tokenize(response):
 
 
 def pickOpener():
-	openerNum = random.randint(1,4)
-	return #some sentence FIXIT
+	openerNum = random.randint(0,2)
+	if openerNum == 0:
+		Opening = "Hey baby, come here often?"
+	elif openerNum == 1:
+		Opening = "Hey there hot stuff, whatchya doin tonight?"
+	else:
+		Opening = "Hey lover, whats going on?"
+	return Opening
 
 def makeFlirt(response, convoComplete, flirtyWeight):
 	'''
@@ -54,22 +61,57 @@ def getClassifier():
 	with open('dict.txt', 'wb') as dict_file:
 		pickle.dump(dictionary, dict_file)
 
+
+def nextNode(storyTree, curNode, flirtiness):
+
+	
+	if flirtiness:
+		for node in storyTree:
+			if node.name == curNode.positiveLink:
+				return node
+	else:
+		for node in storyTree:
+			if node.name == curNode.negativeLink:
+				return node
+
+
+
+
+
+
 #main function, provides loop that allows for the back and forth between BaeBot and the conversation
 def main():
-	with open('classifier.txt', 'rb') as classifier_file:
-		classifier = pickle.load(classifier_file)
-	with open('dict.txt', 'rb') as dict_file:
-		dictionary = pickle.load(dict_file)
-	result = analyze("hey hot momma!", classifier, dictionary)
-	print result
-	result2 = analyze("", classifier, dictionary)
-	print result2
-#	convoComplete = True
-#	flirtyWeight = 0
-#	baeBotResponse = pickOpener()
-#	while(convoComplete): #loop until conversation is satisfied
-#		response = raw_input(baeBotResponse + "\n") # prints Baebot question, takes input from user
-#		baeBotResponse = makeFlirt(response)
+	# with open('classifier.txt', 'rb') as classifier_file:
+	# 	classifier = pickle.load(classifier_file)
+	# with open('dict.txt', 'rb') as dict_file:
+	# 	dictionary = pickle.load(dict_file)
+	# result = analyze("hey hot momma!", classifier, dictionary)
+	# print result
+	# result2 = analyze("", classifier, dictionary)
+	# print result2
+	
+
+
+
+
+	convoComplete = True
+	flirtyWeight = 0
+	baeBotResponse = pickOpener()
+	storyTree = NarrativeTreeStructure.assignStructure()
+	curNode = storyTree[len(storyTree) -1]
+
+	
+	while(convoComplete): #loop until conversation is satisfied
+		response = raw_input(baeBotResponse + "\n") # prints Baebot question, takes input from user
+		baeBotResponse = curNode.sentence
+		responseAnalysis = True #Change to be based on positive or negative
+		curNode = nextNode(storyTree, curNode, responseAnalysis)
+
+
+
+
+
+
 
 if __name__ == "__main__":
 	main()
