@@ -74,7 +74,7 @@ p2B2R1B1 = "Well I guess we know what we’re doing next weekend;)!"
 # End game, two versions depending on flirty weight.
 # Phase 3: 
 # If person is liked:
-p3e1 = "Meet me halfway."
+p3e1 = "Unnnghh come to my place;)"
 
 
 
@@ -99,7 +99,7 @@ def assignStructure():
 	structure.append(Node("p2R4B2B1", "p2R4B2B2", 'p2R4B2', p2R4B2))
 	structure.append(Node("p3e1", "p3e1", 'p2R4B1', p2R4B1))
 	structure.append(Node("p2R4B1", "p2R4B2", 'p2R4', p2R4))
-	structure.append(Node("p2R4", "p2R4", 'p2R3', p2R3))
+	structure.append(Node("p3e1", "p2R4", 'p2R3', p2R3))
 	structure.append(Node("p2R3", "p2R3", 'p2R2', p2R2))
 	structure.append(Node("p2R2", "p2R2", 'p2B1R1', p2B1R1))
 

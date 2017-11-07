@@ -9,6 +9,7 @@ import random
 import ast
 import pickle
 import NarrativeTreeStructure
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
 
@@ -64,8 +65,7 @@ def getClassifier():
 
 def nextNode(storyTree, curNode, flirtiness):
 
-	
-	if flirtiness =="flirty":
+	if flirtiness['compound'] >= 0:
 		for node in storyTree:
 			if node.name == curNode.positiveLink:
 				return node
@@ -74,7 +74,14 @@ def nextNode(storyTree, curNode, flirtiness):
 			if node.name == curNode.negativeLink:
 				return node
 
+def updateFlirtyWeight(flirtiness, currentWeight):
+	print flirtiness
+	if flirtiness == "flirty":
+		currentWeight += .1
+	else:
+		currentWeight -=.1
 
+	return currentWeight
 
 
 
@@ -85,27 +92,35 @@ def main():
 		classifier = pickle.load(classifier_file)
 	with open('dict.txt', 'rb') as dict_file:
 		dictionary = pickle.load(dict_file)
-	# result = analyze("hey hot momma!", classifier, dictionary)
-	# print result
-	# result2 = analyze("", classifier, dictionary)
-	# print result2
-	
-
-
+	#result = analyze("You are beautiful!", classifier, dictionary)
 
 
 	convoComplete = True
 	flirtyWeight = 0
 	baeBotResponse = pickOpener()
 	storyTree = NarrativeTreeStructure.assignStructure()
-	curNode = storyTree[len(storyTree) -1]
+	curNode = "Start"
+	flirtyWeight = 0
+	analyzer = SentimentIntensityAnalyzer()
 
 	
 	while(convoComplete): #loop until conversation is satisfied
+
 		response = raw_input(baeBotResponse + "\n") # prints Baebot question, takes input from user
+		
+		if curNode == "Start":
+			curNode = storyTree[len(storyTree) -1]
+		else:
+			curNode = nextNode(storyTree, curNode, analyzer.polarity_scores(response))
+
+		if curNode == None:
+			print flirtyWeight
+			break
 		baeBotResponse = curNode.sentence
-		responseAnalysis = analyze(response, classifier, dictionary)
-		curNode = nextNode(storyTree, curNode, responseAnalysis)
+		flirtyWeight = updateFlirtyWeight(analyze(response, classifier, dictionary), flirtyWeight)
+
+		
+
 
 
 
