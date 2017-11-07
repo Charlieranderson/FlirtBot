@@ -65,7 +65,7 @@ def getClassifier():
 def nextNode(storyTree, curNode, flirtiness):
 
 	
-	if flirtiness:
+	if flirtiness =="flirty":
 		for node in storyTree:
 			if node.name == curNode.positiveLink:
 				return node
@@ -81,10 +81,10 @@ def nextNode(storyTree, curNode, flirtiness):
 
 #main function, provides loop that allows for the back and forth between BaeBot and the conversation
 def main():
-	# with open('classifier.txt', 'rb') as classifier_file:
-	# 	classifier = pickle.load(classifier_file)
-	# with open('dict.txt', 'rb') as dict_file:
-	# 	dictionary = pickle.load(dict_file)
+	with open('classifier.txt', 'rb') as classifier_file:
+		classifier = pickle.load(classifier_file)
+	with open('dict.txt', 'rb') as dict_file:
+		dictionary = pickle.load(dict_file)
 	# result = analyze("hey hot momma!", classifier, dictionary)
 	# print result
 	# result2 = analyze("", classifier, dictionary)
@@ -104,7 +104,7 @@ def main():
 	while(convoComplete): #loop until conversation is satisfied
 		response = raw_input(baeBotResponse + "\n") # prints Baebot question, takes input from user
 		baeBotResponse = curNode.sentence
-		responseAnalysis = True #Change to be based on positive or negative
+		responseAnalysis = analyze(response, classifier, dictionary)
 		curNode = nextNode(storyTree, curNode, responseAnalysis)
 
 
