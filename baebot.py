@@ -19,21 +19,7 @@ def tokenize(response):
 	tokens = nltk.word_tokenize(response)
 	tagged = nltk.pos_tag(tokens)
 	print tagged #TEMPORARY, should return tagged
-
-
-
-
-def makeFlirt(response, convoComplete, flirtyWeight):
-	'''
-	1. Tag response ... tokenize
-	2. Sentiment analysis http://www.nltk.org/howto/sentiment.html does it help???
-	3. amI... 
-	3.5. based on sentiment and keywords, look for response in response dict, return that
-	'''
-
-#def amIDealingWithADickhead(flirtyWeight):
-	#if a dickhead, end convo
-	#else: keep going
+	
 
 def analyze(sentence, classifier, dictionary):
 	sentence_features = {word.lower(): (word in word_tokenize(sentence.lower())) for word in dictionary}
@@ -55,6 +41,7 @@ def getClassifier():
 		pickle.dump(dictionary, dict_file)
 
 
+#Goes to the next node in the story tree, based on positive/negative response
 def nextNode(storyTree, curNode, flirtiness):
 
 	if flirtiness >= 0:
@@ -66,6 +53,7 @@ def nextNode(storyTree, curNode, flirtiness):
 			if node.name == curNode.negativeLink:
 				return node
 
+#increments the flirty weight based on the response
 def updateFlirtyWeight(flirtiness, currentWeight):
 	
 	if flirtiness == "flirty":

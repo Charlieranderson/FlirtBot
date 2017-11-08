@@ -1,7 +1,7 @@
 # coding: utf-8
 import random
 
-
+#Class responsible for nodes of the story tree, keeps content and links, all assigned on declaration
 class Node:
 	positiveLink = None
 	negativeLink = None
@@ -82,7 +82,7 @@ p3e1 = "Unnnghh come to my place;)"
 #If person is not liked:
 p3e2 = "Oh. That's soooo interesting but look at the time. <YAAAAWNS>. I gotta go to bed. See ya."
 
-
+#Picks a random opener for the story tree
 def pickOpener():
 	openerNum = random.randint(0,2)
 	if openerNum == 0:
@@ -96,6 +96,8 @@ def pickOpener():
 
 structure = []
 
+
+#Initializes the story tree
 def assignStructure():
 	structure = []
 	structure.append(Node(None, None, 'p3e2', p3e2)) 
