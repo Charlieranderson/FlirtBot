@@ -5,7 +5,7 @@ This is the source code for our chatbot BaeBot
 
 import nltk
 from nltk.tokenize import word_tokenize
-import random
+
 import ast
 import pickle
 import NarrativeTreeStructure
@@ -21,15 +21,7 @@ def tokenize(response):
 	print tagged #TEMPORARY, should return tagged
 
 
-def pickOpener():
-	openerNum = random.randint(0,2)
-	if openerNum == 0:
-		Opening = "Hey baby, come here often?"
-	elif openerNum == 1:
-		Opening = "Hey there hot stuff, whatchya doin tonight?"
-	else:
-		Opening = "Hey lover, whats going on?"
-	return Opening
+
 
 def makeFlirt(response, convoComplete, flirtyWeight):
 	'''
@@ -65,7 +57,7 @@ def getClassifier():
 
 def nextNode(storyTree, curNode, flirtiness):
 
-	if flirtiness['compound'] >= 0:
+	if flirtiness >= 0:
 		for node in storyTree:
 			if node.name == curNode.positiveLink:
 				return node
@@ -75,7 +67,7 @@ def nextNode(storyTree, curNode, flirtiness):
 				return node
 
 def updateFlirtyWeight(flirtiness, currentWeight):
-	print flirtiness
+	
 	if flirtiness == "flirty":
 		currentWeight += .1
 	else:
@@ -97,28 +89,32 @@ def main():
 
 	convoComplete = True
 	flirtyWeight = 0
-	baeBotResponse = pickOpener()
 	storyTree = NarrativeTreeStructure.assignStructure()
 	curNode = "Start"
 	flirtyWeight = 0
 	analyzer = SentimentIntensityAnalyzer()
 
 	
-	while(convoComplete): #loop until conversation is satisfied
-
-		response = raw_input(baeBotResponse + "\n") # prints Baebot question, takes input from user
-		
+	while(convoComplete): #loop until conversation is satisfied	
 		if curNode == "Start":
 			curNode = storyTree[len(storyTree) -1]
+
+		elif curNode.name == 'decision':
+			if flirtyWeight > 0:
+				curNode = nextNode(storyTree, curNode, 1)
+			else:
+				curNode = nextNode(storyTree, curNode, -1)
 		else:
-			curNode = nextNode(storyTree, curNode, analyzer.polarity_scores(response))
+			curNode = nextNode(storyTree, curNode, analyzer.polarity_scores(response)['compound'])
 
 		if curNode == None:
-			print flirtyWeight
+			print "The bot has left the chat!"
 			break
-		baeBotResponse = curNode.sentence
-		flirtyWeight = updateFlirtyWeight(analyze(response, classifier, dictionary), flirtyWeight)
 
+		baeBotResponse = curNode.sentence
+
+		response = raw_input(baeBotResponse + "\n") # prints Baebot question, takes input from user
+		flirtyWeight = updateFlirtyWeight(analyze(response, classifier, dictionary), flirtyWeight)
 		
 
 

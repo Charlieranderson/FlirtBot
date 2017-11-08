@@ -1,5 +1,5 @@
 # coding: utf-8
-
+import random
 
 
 class Node:
@@ -73,6 +73,7 @@ p2B2R1B1 = "Well I guess we know what we’re doing next weekend;)!"
 
 # End game, two versions depending on flirty weight.
 # Phase 3: 
+p3e0 = 'Hmmm, now what should I do with you?'
 # If person is liked:
 p3e1 = "Unnnghh come to my place;)"
 
@@ -82,24 +83,36 @@ p3e1 = "Unnnghh come to my place;)"
 p3e2 = "Oh. That's soooo interesting but look at the time. <YAAAAWNS>. I gotta go to bed. See ya."
 
 
+def pickOpener():
+	openerNum = random.randint(0,2)
+	if openerNum == 0:
+		Opening = "Hey baby, come here often?"
+	elif openerNum == 1:
+		Opening = "Hey there hot stuff, whatchya doin tonight?"
+	else:
+		Opening = "Hey lover, whats going on?"
+	return Opening
+
+
 structure = []
 
 def assignStructure():
 	structure = []
 	structure.append(Node(None, None, 'p3e2', p3e2)) 
 	structure.append(Node(None, None, 'p3e1', p3e1))
+	structure.append(Node('p3e1', 'p3e2', 'decision', p3e0))
 
-	structure.append(Node('p3e2', 'p3e2', 'p2R4B2B2', p2R4B2B2))
-	structure.append(Node('p3e1', 'p3e1', 'p2B2R1B1', p2B2R1B1))
+	structure.append(Node('decision', 'decision', 'p2R4B2B2', p2R4B2B2))
+	structure.append(Node('decision', 'decision', 'p2B2R1B1', p2B2R1B1))
 	structure.append(Node("p2B2R1B1", "p2B2R1B1", 'p2B2R1', p2B2R1))
 	
 
 
-	structure.append(Node('p3e1', 'p3e1', 'p2R4B2B1', p2R4B2B1))
+	structure.append(Node('decision', 'decision', 'p2R4B2B1', p2R4B2B1))
 	structure.append(Node("p2R4B2B1", "p2R4B2B2", 'p2R4B2', p2R4B2))
-	structure.append(Node("p3e1", "p3e1", 'p2R4B1', p2R4B1))
+	structure.append(Node("decision", "decision", 'p2R4B1', p2R4B1))
 	structure.append(Node("p2R4B1", "p2R4B2", 'p2R4', p2R4))
-	structure.append(Node("p3e1", "p2R4", 'p2R3', p2R3))
+	structure.append(Node("decision", "p2R4", 'p2R3', p2R3))
 	structure.append(Node("p2R3", "p2R3", 'p2R2', p2R2))
 	structure.append(Node("p2R2", "p2R2", 'p2B1R1', p2B1R1))
 
@@ -109,6 +122,7 @@ def assignStructure():
 	structure.append(Node("p1R4", "p1R4", 'p1R3', p1R3))
 	structure.append(Node("p1R3", "p1R3", 'p1R2', p1R2))
 	structure.append(Node("p1R2", "p1R2", 'p1R1', p1R1))
+	structure.append(Node("p1R1", "p1R1", 'start', pickOpener()))
 
 	return structure
 
