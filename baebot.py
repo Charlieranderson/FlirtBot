@@ -63,6 +63,26 @@ def updateFlirtyWeight(flirtiness, currentWeight):
 
 	return currentWeight
 
+#checks for special cases 
+def specialCases(inp):
+	swears = ['anal','anus','arse','ass','ballsack','balls','bastard','bitch','biatch','blowjob','blow job','bollock','bollok','boner','boob','bugger','bum','butt','buttplug','cock','cunt','damn','dick','dildo','dyke','fag','feck','fellate','fellatio','felching','fuck','f u c k','goddamn','god damn','hell','homo','jerk','jizz','nigger','nigga','penis','piss','poop','prick','pube','pussy','scrotum','slut','smegma','twat','wank','whore','wtf']
+	for word in inp.split():
+		plural = word + 's'
+		if word in swears or plural in swears:
+			return "Um...I don't appreciate your language rn."
+
+	if 'talk dirty' in inp or 'dirty talk' in inp or 'dirty talking' in inp or 'talking dirty' in inp:
+		return "Hey! I'm not that kind of bot!"
+
+	elif 'your mom' in inp or 'ur mom' in inp:
+		return "VERY mature :P I'm just trying to have a pleasant conversation with an attractive human (that's you)"
+
+	elif 'fav' in inp and 'prof' in inp:
+		return "Blake Howald is hands down the coolest professor ever."
+
+	else:
+		return None
+
 
 
 
@@ -102,6 +122,8 @@ def main():
 		baeBotResponse = curNode.sentence
 
 		response = raw_input(baeBotResponse + "\n") # prints Baebot question, takes input from user
+		extra = specialCases(response)
+		if extra is not None: print extra
 		flirtyWeight = updateFlirtyWeight(analyze(response, classifier, dictionary), flirtyWeight)
 		
 
