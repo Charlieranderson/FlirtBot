@@ -15,10 +15,37 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
 #Tokenizes the response given by the user.
-def tokenize(response):
+def getProperNoun(response, infoType):
+	info = ""
 	tokens = nltk.word_tokenize(response)
 	tagged = nltk.pos_tag(tokens)
-	print tagged #TEMPORARY, should return tagged
+
+	if infoType == 'name' or infoType == 'shirtLocation':
+		for element in tagged:
+			if element[1] == "NNP":
+				if info == '':
+					info = element[0]
+				else:
+					info = info + " " + element[0]
+
+	if infoType == 'occupation':
+		for element in tagged:
+			if element[1] == "NN":
+				if info == '':
+					info = element[0]
+				else:
+					info = info + " " + element[0]
+
+	if infoType == 'foodType':
+		for element in tagged:
+			if element[1] == "JJ":
+				if info == '':
+					info = element[0]
+				else:
+					info = info + " " + element[0]
+
+
+	return info
 	
 
 def analyze(sentence, classifier, dictionary):
@@ -85,6 +112,21 @@ def specialCases(inp):
 		return None
 
 
+def captureInfo(curNode, response):
+
+	info = ''
+
+	if curNode.name == 'p1R1':
+		info = getProperNoun(response, 'shirtLocation')
+	if curNode.name == 'p1R2':
+		info = getProperNoun(response, 'foodType')
+		
+	if curNode.name == 'p1R3':
+		info = getProperNoun(response, 'name')
+	if curNode.name == 'p1R4':
+		info = getProperNoun(response, 'occupation')
+		
+	return info
 
 
 #main function, provides loop that allows for the back and forth between BaeBot and the conversation
@@ -103,6 +145,7 @@ def main():
 	curNode = "Start"
 	flirtyWeight = 0
 	analyzer = SentimentIntensityAnalyzer()
+	capturedInfo = ''
 
 	
 	while(convoComplete): #loop until conversation is satisfied	
@@ -116,14 +159,20 @@ def main():
 				curNode = nextNode(storyTree, curNode, -1)
 		else:
 			curNode = nextNode(storyTree, curNode, analyzer.polarity_scores(response)['compound'])
+			
 
 		if curNode == None:
 			print "The bot has left the chat!"
 			break
 
 		baeBotResponse = curNode.sentence
+		baeBotResponse = baeBotResponse.replace(';]', capturedInfo)
 
 		response = raw_input(baeBotResponse + "\n") # prints Baebot question, takes input from user
+		capturedInfo = captureInfo(curNode, response)
+		# tokens = nltk.word_tokenize(response)
+		# tagged = nltk.pos_tag(tokens)
+		# print tagged
 		extra = specialCases(response)
 		if extra is not None: print extra
 		flirtyWeight = updateFlirtyWeight(analyze(response, classifier, dictionary), flirtyWeight)

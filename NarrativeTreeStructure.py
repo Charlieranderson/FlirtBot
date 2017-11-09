@@ -17,10 +17,10 @@ class Node:
 
 # BaeBot Narrative Structure
 
-name = "Lover Boy"
-foodType = "Italian"
-shirtLocation = "American Eagle"
-occupation = "Vigilante"
+name = ";]"
+foodType = ";]"
+shirtLocation = ";]"
+occupation = ";]"
 
 Opening1 = "Hey baby, come here often?"
 Opening2 = "Hey there hot stuff, whatchya doin tonight?"
