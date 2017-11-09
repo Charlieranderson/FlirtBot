@@ -4,13 +4,13 @@ from nltk.tokenize import word_tokenize
 training_list = []
 flirty_file = "FlirtyTexts.txt"
 not_flirty_file = "Boring_Corpus"
-#training_data_file = "training_data.txt"
+training_data_file = "training_data.txt"
 dictionary_file = "dictionary.txt"
 
 flirty = open(flirty_file,"r")
 not_flirty = open(not_flirty_file, "r")
 dictionary_string = open(dictionary_file, "w")
-#training_data = open(training_data_file, "w")
+training_data = open(training_data_file, "w")
 for line in flirty.readlines():
     if line != "\n":
         training_list.append(tuple((line.strip(), "flirty")))
@@ -24,7 +24,7 @@ print("yo")
 
 t = [({word: (word in word_tokenize(x[0])) for word in dictionary}, x[1]) for x in training_list]
 
-#training_data.write(str(t))
+training_data.write(str(t))
 #
 #classifier = iter(nltk.NaiveBayesClassifier.train(t))
 #  

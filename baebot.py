@@ -32,6 +32,7 @@ def getClassifier():
 	dictionary_data = open(dictionary_file,"r")
 	data = training_data.readline()
 	dictionary_string = dictionary_data.readline()
+	print dictionary_string
 	dictionary = ast.literal_eval(dictionary_string)
 	training_data_list = ast.literal_eval(data)
 	classifier = nltk.NaiveBayesClassifier.train(training_data_list)
@@ -63,27 +64,36 @@ def updateFlirtyWeight(flirtiness, currentWeight):
 
 	return currentWeight
 
+#checks for special cases 
+def specialCases(inp):
+	swears = ['anal','anus','arse','ass','ballsack','balls','bastard','bitch','biatch','blowjob','blow job','bollock','bollok','boner','boob','bugger','bum','butt','buttplug','cock','cunt','damn','dick','dildo','dyke','fag','feck','fellate','fellatio','felching','fuck','f u c k','goddamn','god damn','hell','homo','jerk','jizz','nigger','nigga','penis','piss','poop','prick','pube','pussy','scrotum','slut','smegma','twat','wank','whore','wtf']
+	for word in inp.split():
+		plural = word + 's'
+		if word in swears or plural in swears:
+			return "Um...I don't appreciate your language rn."
+
+	if 'talk dirty' in inp or 'dirty talk' in inp or 'dirty talking' in inp or 'talking dirty' in inp:
+		return "Hey! I'm not that kind of bot!"
+
+	elif 'your mom' in inp or 'ur mom' in inp:
+		return "VERY mature :P I'm just trying to have a pleasant conversation with an attractive human (that's you)"
+
+	elif 'fav' in inp and 'prof' in inp:
+		return "Blake Howald is hands down the coolest professor ever."
+
+	else:
+		return None
+
 
 
 
 #main function, provides loop that allows for the back and forth between BaeBot and the conversation
 def main():
+#	getClassifier()
 	with open('classifier.txt', 'rb') as classifier_file:
 		classifier = pickle.load(classifier_file)
 	with open('dict.txt', 'rb') as dict_file:
 		dictionary = pickle.load(dict_file)
-<<<<<<< HEAD
-	result = analyze("Good.", classifier, dictionary)
-	print result
-	result2 = analyze("Bad.", classifier, dictionary)
-	print result2
-#	convoComplete = True
-#	flirtyWeight = 0
-#	baeBotResponse = pickOpener()
-#	while(convoComplete): #loop until conversation is satisfied
-#		response = raw_input(baeBotResponse + "\n") # prints Baebot question, takes input from user
-#		baeBotResponse = makeFlirt(response)
-=======
 	#result = analyze("You are beautiful!", classifier, dictionary)
 
 
@@ -114,6 +124,8 @@ def main():
 		baeBotResponse = curNode.sentence
 
 		response = raw_input(baeBotResponse + "\n") # prints Baebot question, takes input from user
+		extra = specialCases(response)
+		if extra is not None: print extra
 		flirtyWeight = updateFlirtyWeight(analyze(response, classifier, dictionary), flirtyWeight)
 		
 
@@ -123,7 +135,6 @@ def main():
 
 
 
->>>>>>> bea1799b56d3e3123200252c6afceff2b156629c
 
 if __name__ == "__main__":
 	main()
