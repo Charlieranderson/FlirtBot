@@ -60,9 +60,9 @@ def main():
 		classifier = pickle.load(classifier_file)
 	with open('dict.txt', 'rb') as dict_file:
 		dictionary = pickle.load(dict_file)
-	result = analyze("You are beautiful!", classifier, dictionary)
+	result = analyze("Good.", classifier, dictionary)
 	print result
-	result2 = analyze("You are so ugly.", classifier, dictionary)
+	result2 = analyze("Bad.", classifier, dictionary)
 	print result2
 #	convoComplete = True
 #	flirtyWeight = 0
