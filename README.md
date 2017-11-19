@@ -17,10 +17,9 @@ vaderSentiment
 random
 
 ----------------------------------------------------------------------------------
-FlirtBot seq2seq model:
+FlirtBot seq2seq model
 
-Dependencies
-============
+Dependencies:
 * numpy
 * scipy 
 * six
@@ -29,8 +28,7 @@ Dependencies
 Use [pip](https://pypi.python.org/pypi/pip) to install any missing dependencies
 
 
-Usage
-===========
+Usage:
 
 To train the bot, edit the `seq2seq.ini` file so that mode is set to train like so
 
