@@ -47,11 +47,12 @@ def getProperNoun(response, infoType):
 
 	return info
 	
-
+#tokenizes elements of sentence and uses our already made flirty classifier and our dictionary of words to classify the sentence as flirty or not
 def analyze(sentence, classifier, dictionary):
 	sentence_features = {word.lower(): (word in word_tokenize(sentence.lower())) for word in dictionary}
 	return classifier.classify(sentence_features)
 
+#Accesses training data and dictionary files, which are strings, and places them in new files using pickle, so that they can be accessed without having to convert their data structure. Note this only needs to be run after running sentiment_analysis.py
 def getClassifier():
 	training_data_file = "training_data.txt"
 	dictionary_file = "dictionary.txt"

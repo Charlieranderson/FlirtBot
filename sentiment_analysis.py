@@ -1,3 +1,5 @@
+#To be run every time the corpuses are changed. Generates a list of words from the corpuses and a classifier, which contains a list of tuples (the 1st item of tuple is the dictionary of all words and whether they are in the sentence and the 2nd item of tuple is whether the sentence is flirty)
+
 import nltk
 from nltk.tokenize import word_tokenize
   
@@ -25,10 +27,3 @@ print("yo")
 t = [({word: (word in word_tokenize(x[0])) for word in dictionary}, x[1]) for x in training_list]
 
 training_data.write(str(t))
-#
-#classifier = iter(nltk.NaiveBayesClassifier.train(t))
-#  
-#test_data = "Manchurian was hot and spicy"
-#test_data_features = {word.lower(): (word in word_tokenize(test_data.lower())) for word in dictionary}
-#  
-#print (classifier.classify(test_data_features))
