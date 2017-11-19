@@ -17,7 +17,7 @@ vaderSentiment
 random
 
 ----------------------------------------------------------------------------------
-seq2seq model:
+FlirtBot seq2seq model:
 
 Dependencies
 ============
