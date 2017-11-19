@@ -14,7 +14,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
 
-#Tokenizes the response given by the user.
+#Tokenizes the response given by the user, collects specific parts of speech depending on input
 def getProperNoun(response, infoType):
 	info = ""
 	tokens = nltk.word_tokenize(response)
@@ -91,27 +91,37 @@ def updateFlirtyWeight(flirtiness, currentWeight):
 
 	return currentWeight
 
-#checks for special cases 
+#checks for special cases such as swearing or 'your mom' and exits the conversation if it finds something 
 def specialCases(inp):
 	swears = ['anal','anus','arse','ass','ballsack','balls','bastard','bitch','biatch','blowjob','blow job','bollock','bollok','boner','boob','bugger','bum','butt','buttplug','cock','cunt','damn','dick','dildo','dyke','fag','feck','fellate','fellatio','felching','fuck','f u c k','goddamn','god damn','hell','homo','jerk','jizz','nigger','nigga','penis','piss','poop','prick','pube','pussy','scrotum','slut','smegma','twat','wank','whore','wtf']
 	for word in inp.split():
 		plural = word + 's'
 		if word in swears or plural in swears:
-			return "Um...I don't appreciate your language rn."
+			print  "Um...I don't appreciate your language rn."
+			print "The bot has left the conversation!"
+			exit(0)
+
 
 	if 'talk dirty' in inp or 'dirty talk' in inp or 'dirty talking' in inp or 'talking dirty' in inp:
-		return "Hey! I'm not that kind of bot!"
+		print "Hey! I'm not that kind of bot!"
+		print "The bot has left the conversation!"
+		exit(0)
 
 	elif 'your mom' in inp or 'ur mom' in inp:
-		return "VERY mature :P I'm just trying to have a pleasant conversation with an attractive human (that's you)"
+		print "VERY mature :P I'm just trying to have a pleasant conversation ugh"
+		print "The bot has left the conversation!"
+		exit(0)
 
 	elif 'fav' in inp and 'prof' in inp:
-		return "Blake Howald is hands down the coolest professor ever."
+		print "Blake Howald is hands down the coolest professor ever, so cool in fact that I must leave rn."
+		print "The bot has left the conversation!"
+		exit(0)
 
 	else:
 		return None
 
 
+#This function controls the collection of information during the first phase of the narrative
 def captureInfo(curNode, response):
 
 	info = ''
@@ -178,16 +188,5 @@ def main():
 		flirtyWeight = updateFlirtyWeight(analyze(response, classifier, dictionary), flirtyWeight)
 		
 
-
-
-
-
-
-
-
 if __name__ == "__main__":
 	main()
-
-
-##Initiate convo
-#tokenize("My Name is Ammar.")
