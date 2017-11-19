@@ -147,8 +147,6 @@ def main():
 		classifier = pickle.load(classifier_file)
 	with open('dict.txt', 'rb') as dict_file:
 		dictionary = pickle.load(dict_file)
-#	result = analyze("You are stealing my heart.", classifier, dictionary)
-#	print result
 
 	convoComplete = True
 	flirtyWeight = 0
@@ -181,9 +179,6 @@ def main():
 
 		response = raw_input(baeBotResponse + "\n") # prints Baebot question, takes input from user
 		capturedInfo = captureInfo(curNode, response)
-		# tokens = nltk.word_tokenize(response)
-		# tagged = nltk.pos_tag(tokens)
-		# print tagged
 		extra = specialCases(response)
 		if extra is not None: print extra
 		flirtyWeight = updateFlirtyWeight(analyze(response, classifier, dictionary), flirtyWeight)
