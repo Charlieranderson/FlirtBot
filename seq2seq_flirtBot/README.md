@@ -1,23 +1,7 @@
-# FlirtBot
-Created by Charlie, Ammar, Leila, Teddy
+# Tensorflow Chatbot
 
-This is a bot that is meant to seduce you, prepare yourselves.
-
-How to run our bot:
-Open terminal, cd into the folder that contains this project, and run the command:
-
-python baebot.py
-
-----------------------------------------------------------------------------------
-List of libraries used:
-NLTK
-ast
-pickle
-vaderSentiment
-random
-
-----------------------------------------------------------------------------------
-seq2seq model:
+DISCLAIMER: MOST OF THE CODE IS TAKEN FROM A PUBLIC GIT REPOSITORY FOR MAKING SEQ2SEQ CHATBOTS
+(https://github.com/llSourcell/tensorflow_chatbot)
 
 Dependencies
 ============
@@ -28,10 +12,12 @@ Dependencies
 
 Use [pip](https://pypi.python.org/pypi/pip) to install any missing dependencies
 
+Data Preparation
+================
+Go to the directory data/dataDir and run: python dataCleaner.py and copy the train and test files to ../
 
 Usage
 ===========
-
 To train the bot, edit the `seq2seq.ini` file so that mode is set to train like so
 
 `mode = train`
@@ -47,3 +33,8 @@ To test the bot during or after training, edit the `seq2seq.ini` file so that mo
 then run the code like so
 
 ``python execute.py``
+
+Credits
+===========
+Credit for the vast majority of code here goes to [suriyadeepan](https://github.com/suriyadeepan) and @Sirajology.
+All we did was clean up the data for our corpus and train the given model on it.
